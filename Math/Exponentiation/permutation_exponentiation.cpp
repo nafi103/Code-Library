@@ -1,0 +1,21 @@
+/*
+ * Permutation Exponentiation
+ * Time: O(N log K)
+ * Use: Applying a permutation K times efficiently
+ */
+vector<int> applyPermutation(vector<int> sequence, vector<int> permutation) {
+    vector<int> newSequence(sequence.size());
+    for(int i = 0; i < (int)sequence.size(); i++) {
+        newSequence[i] = sequence[permutation[i]];
+    }
+    return newSequence;
+}
+
+vector<int> permute(vector<int> sequence, vector<int> permutation, int k) {
+    while (k > 0) {
+        if (k & 1) sequence = applyPermutation(sequence, permutation);
+        permutation = applyPermutation(permutation, permutation);
+        k >>= 1;
+    }
+    return sequence;
+}
