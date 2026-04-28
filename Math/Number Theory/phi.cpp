@@ -14,13 +14,25 @@ int phi(int n) {
     return result;
 }
 
-void phi_1_to_n(int n, vector<int>& p) {
-    p.resize(n + 1);
-    for (int i = 0; i <= n; i++) p[i] = i;
-    for (int i = 2; i <= n; i++) {
-        if (p[i] == i) {
-            for (int j = i; j <= n; j += i)
-                p[j] -= p[j] / i;
+const int N = 1e7 + 1;
+vector<int> primes;
+int phi[N];
+
+void phi_1_to_n(){
+    phi[1] = 1;
+    for(int i = 2; i < N; i++) {
+        if(phi[i] == 0){ 
+            primes.push_back(i);
+            phi[i] = i - 1;
+        }
+        for(int p : primes){
+            if(i * p >= N) break;
+            if(i % p == 0){
+                phi[i * p] = phi[i] * p;
+                break;
+            }else {
+                phi[i * p] = phi[i] * (p - 1);
+            }
         }
     }
 }
