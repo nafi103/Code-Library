@@ -17,6 +17,7 @@ Code-Library/
 ├── Template/               # CP Starter and Debugger
 ├── Data Structures/
 │   ├── DSU/                # Disjoint Set Union (Size/Rank)
+│   ├── Fenwick Tree/       # 1D and 2D Binary Indexed Trees (0-indexed)
 │   ├── Segment Tree/       # Point & Lazy Propagation
 │   └── Ordered Set (PBDS)/ # Order Statistics Tree
 ├── Graph/
