@@ -1,3 +1,11 @@
+/*
+ * Fenwick Tree (1D)
+ * 0-indexed implementation.
+ * constructor(arr): O(N) linear time construction.
+ * query(r): Returns the sum of elements in range [0, r].
+ * query(l, r): Returns the sum of elements in range [l, r].
+ * add(idx, delta): Adds delta to the element at idx.
+ */
 template <typename T>
 struct Fenwick_Tree{
     int n;
