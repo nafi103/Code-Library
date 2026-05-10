@@ -1,24 +1,63 @@
-/*
- * Standard Trie (Prefix Tree)
- * Use: Storing and searching strings by prefix
+/**
+ * Trie (Prefix Tree) - Vector Based
+ * * Efficiency: O(Length of string) for all operations.
+ * Space: O(Σ * Total Characters), where Σ is alphabet size (26).
+ * Features: 
+ * - pass: Number of strings having this prefix.
+ * - end : Number of strings ending at this node (handles duplicates).
+ * - Memory efficient vector-based implementation (no pointers).
  */
-const int K = 26;
-struct Vertex {
-    int next[K];
-    bool output = false;
-    Vertex() { fill(begin(next), end(next), -1); }
-};
-
-vector<Vertex> Trie(1);
-void add_string(string const& s) {
-    int v = 0;
-    for (char ch : s) {
-        int c = ch - 'a';
-        if (Trie[v].next[c] == -1) {
-            Trie[v].next[c] = sz(Trie);
-            Trie.emplace_back();
+struct Trie {
+    struct Node {
+        int next[26];
+        int pass = 0;
+        int end = 0;
+        
+        Node() { 
+            memset(next, -1, sizeof(next)); 
         }
-        v = Trie[v].next[c];
+    };
+    
+    vector<Node> t;
+
+    Trie() {
+        t.assign(1, Node()); 
     }
-    Trie[v].output = true;
-}
+
+    void insert(const string& s) {
+        int v = 0;
+        for (char ch : s) {
+            int c = ch - 'a';
+            if (t[v].next[c] == -1) {
+                t[v].next[c] = t.size();
+                t.emplace_back();
+            }
+            v = t[v].next[c];
+            t[v].pass++;
+        }
+        t[v].end++;
+    }
+
+    bool search(const string& s) {
+        int v = 0;
+        for (char ch : s) {
+            int c = ch - 'a';
+            if (t[v].next[c] == -1 || t[t[v].next[c]].pass == 0) {
+                return false; 
+            }
+            v = t[v].next[c];
+        }
+        return t[v].end > 0;
+    }
+
+    void erase(const string& s) {
+        if (!search(s)) return; 
+        
+        int v = 0;
+        for (char ch : s) {
+            v = t[v].next[ch - 'a'];
+            t[v].pass--;
+        }
+        t[v].end--;
+    }
+};
