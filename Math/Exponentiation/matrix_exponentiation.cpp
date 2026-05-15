@@ -3,13 +3,13 @@
  * Time: O(K^3 log P)
  * Use: Solving linear recurrences (like Fibonacci) in log time
  */
-vector<vector<int>> multiply(vector<vector<int>>&a, vector<vector<int>>&b){ 
-    int n = sz(a), m = sz(a[0]), p = sz(b);
-    vector<vector<int>>result(n,vector<int>(m,0));
-    for(int i = 0; i<n; i++){
-        for(int j = 0; j<m; j++){
-            for(int k = 0; k<p; k++){
-                result[i][j] = (result[i][j] + (a[i][k] * b[k][j])) % mod;
+vector<vector<int>> multiply(vector<vector<int>>& a, vector<vector<int>>& b) {
+    int n = sz(a), m = sz(a[0]), p = sz(b[0]);
+    vector<vector<int>> result(n, vector<int>(p, 0));
+    for (int i = 0; i < n; i++) {
+        for (int k = 0; k < m; k++) {
+            for (int j = 0; j < p; j++) {
+                result[i][j] = (result[i][j] + a[i][k] * b[k][j]) % mod;
             }
         }
     }
